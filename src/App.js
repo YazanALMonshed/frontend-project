@@ -1,24 +1,36 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+
 function App() {
+
+  const [state, setState] = useState({jobs: [], isLoading: true});
+
+  useEffect(()=>{
+    getData();
+  }, []);
+  
+  const getData = async () =>{
+    const url = 'http://78.141.200.183:8000/api/services';
+    const res = await fetch(url);
+    const json_data = await res.json();
+
+    // .data is the array that contains the desired info.
+    setState({jobs: json_data.data, isLoading: false});
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      { 
+        state.isLoading || !state.jobs.length ? 
+        <p> data is loading.. </p> :
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          { /* homepage componet -> renders other components */
+            state.jobs[0].name
+          }
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      }
     </div>
   );
 }
