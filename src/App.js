@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import {Index} from'./pages/onepirate/Home';
 
 function App() {
 
   const [state, setState] = useState({jobs: [], isLoading: true});
 
   useEffect(()=>{
-    getData();
+    // getData();
   }, []);
   
   const getData = async () =>{
@@ -21,17 +21,18 @@ function App() {
   }
 
   return (
-    <div className="App">
-      { 
-        state.isLoading || !state.jobs.length ? 
-        <p> data is loading.. </p> :
-        <p>
-          { /* homepage componet -> renders other components */
-            state.jobs[0].name
-          }
-        </p>
-      }
-    </div>
+    <Index />
+    // <div className="App">
+    //   { 
+    //     state.isLoading || !state.jobs.length ? 
+    //     <p> data is loading.. </p> :
+    //     <p>
+    //       { /* homepage componet -> renders other components */
+    //         state.jobs[0].name
+    //       }
+    //     </p>
+    //   }
+    // </div>
   );
 }
 
